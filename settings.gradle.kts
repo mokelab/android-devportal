@@ -20,5 +20,6 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "DevPortal"
-include(":app")
- 
+include(":demo")
+include(":lib:devportal")
+include(":lib:api")
