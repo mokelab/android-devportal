@@ -24,6 +24,7 @@ class LogcatViewModel : ViewModel() {
         data class Logcat(
             val loading: Boolean,
             val logs: List<String>,
+            val format: LogcatFormat // 追加: 現在のフォーマット
         ) : UiState
     }
 
@@ -34,6 +35,7 @@ class LogcatViewModel : ViewModel() {
         _uiState.value = UiState.Logcat(
             loading = true,
             logs = emptyList(),
+            format = format // 追加
         )
 
         viewModelScope.launch(Dispatchers.IO) {
@@ -42,14 +44,20 @@ class LogcatViewModel : ViewModel() {
                 val lines = process.inputStream.reader().buffered().readLines()
                 _uiState.value = UiState.Logcat(
                     loading = false,
-                    logs = lines.takeLast(200) // Display the last 200 lines of logcat
+                    logs = lines.takeLast(200), // Display the last 200 lines of logcat
+                    format = format // 追加
                 )
             } catch (e: Exception) {
                 _uiState.value = UiState.Logcat(
                     loading = false,
-                    logs = listOf("Failed to read logcat: ${e.message}")
+                    logs = listOf("Failed to read logcat: ${e.message}"),
+                    format = format // 追加
                 )
             }
         }
+    }
+
+    fun toSetting() {
+        _uiState.value = UiState.Setting
     }
 }

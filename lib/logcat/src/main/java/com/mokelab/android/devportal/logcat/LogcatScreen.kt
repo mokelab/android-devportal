@@ -3,12 +3,15 @@ package com.mokelab.android.devportal.logcat
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenuItem
@@ -48,6 +51,9 @@ fun LogcatScreen(
             viewModel.readLogcat(format)
         },
         back = back,
+        toSetting = {
+            viewModel.toSetting()
+        }
     )
 }
 
@@ -57,6 +63,7 @@ private fun LogcatScreen(
     uiState: LogcatViewModel.UiState,
     start: (format: LogcatViewModel.LogcatFormat) -> Unit,
     back: () -> Unit,
+    toSetting: () -> Unit = {}, // 追加: 設定に戻すコールバック
 ) {
     Scaffold(
         topBar = {
@@ -95,10 +102,34 @@ private fun LogcatScreen(
                     }
                     return@Scaffold
                 }
-                LogList(
-                    logs = uiState.logs,
-                    contentPadding = innerPadding,
-                )
+                // formatを画面の一番上に表示し、「設定に戻る」ボタンをバツアイコンに変更
+                Column(modifier = Modifier.padding(innerPadding)) {
+                    // フォーマット表示とバツボタンを横並び
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp, vertical = 8.dp),
+                    ) {
+                        Text(
+                            text = "Format: ${uiState.format.formatArg}",
+                            modifier = Modifier.weight(1f)
+                        )
+                        IconButton(
+                            onClick = { toSetting() },
+                            modifier = Modifier
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Close,
+                                contentDescription = "設定に戻る"
+                            )
+                        }
+                    }
+                    LogList(
+                        logs = uiState.logs,
+                        contentPadding = PaddingValues(0.dp), // Columnでpadding済み
+                    )
+                }
             }
         }
     }
