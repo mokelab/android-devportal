@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$/demo" />
             <option value="$PROJECT_DIR$/lib" />
             <option value="$PROJECT_DIR$/lib/api" />
+            <option value="$PROJECT_DIR$/lib/bom" />
             <option value="$PROJECT_DIR$/lib/devportal" />
             <option value="$PROJECT_DIR$/lib/logcat" />
           </set>

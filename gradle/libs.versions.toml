@@ -1,4 +1,6 @@
 [versions]
+devportal = "1.0.0"
+
 agp = "9.0.0-rc02"
 coreKtx = "1.17.0"
 junit = "4.13.2"
@@ -13,6 +15,7 @@ material = "1.13.0"
 hilt = "2.58"
 ksp = "2.3.4"
 navigation3 = "1.0.1"
+jetbrainsKotlinJvm = "2.3.10"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -32,9 +35,10 @@ androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-te
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-mokelab-devportal-devportal = { group = "com.mokelab.android.devportal", name = "devportal", version = "1.0.0" }
-mokelab-devportal-api = { group = "com.mokelab.android.devportal", name = "api", version = "1.0.0" }
-mokelab-devportal-logcat = { group = "com.mokelab.android.devportal", name = "logcat", version = "1.0.0" }
+mokelab-devportal-bom = { group = "com.mokelab.android.devportal", name = "bom", version.ref = "devportal" }
+mokelab-devportal-devportal = { group = "com.mokelab.android.devportal", name = "devportal", version.ref = "devportal" }
+mokelab-devportal-api = { group = "com.mokelab.android.devportal", name = "api", version.ref = "devportal" }
+mokelab-devportal-logcat = { group = "com.mokelab.android.devportal", name = "logcat", version.ref = "devportal" }
 
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
@@ -47,4 +51,5 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 android-library = { id = "com.android.library", version.ref = "agp" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 
