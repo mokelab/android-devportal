@@ -55,7 +55,7 @@ fun LogcatScreen(
 @Composable
 private fun LogcatScreen(
     uiState: LogcatViewModel.UiState,
-    start: (format: String) -> Unit,
+    start: (format: LogcatViewModel.LogcatFormat) -> Unit,
     back: () -> Unit,
 ) {
     Scaffold(
@@ -108,9 +108,9 @@ private fun LogcatScreen(
 @Composable
 private fun SettingForm(
     contentPadding: PaddingValues,
-    start: (format: String) -> Unit,
+    start: (format: LogcatViewModel.LogcatFormat) -> Unit,
 ) {
-    val formats = listOf("brief", "process", "tag", "raw", "time", "threadtime", "long")
+    val formats = LogcatViewModel.LogcatFormat.entries.toList()
     var expanded by remember { mutableStateOf(false) }
     var selectedFormat by remember { mutableStateOf(formats[0]) }
 
@@ -123,7 +123,7 @@ private fun SettingForm(
                 .padding(top = 16.dp),
         ) {
             OutlinedTextField(
-                value = selectedFormat,
+                value = selectedFormat.formatArg,
                 onValueChange = {},
                 readOnly = true,
                 label = { Text("Format") },
@@ -138,7 +138,7 @@ private fun SettingForm(
             ) {
                 formats.forEach { format ->
                     DropdownMenuItem(
-                        text = { Text(format) },
+                        text = { Text(format.formatArg) },
                         onClick = {
                             selectedFormat = format
                             expanded = false

@@ -9,6 +9,16 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class LogcatViewModel : ViewModel() {
+    enum class LogcatFormat(val formatArg: String) {
+        BRIEF("brief"),
+        PROCESS("process"),
+        TAG("tag"),
+        RAW("raw"),
+        TIME("time"),
+        THREADTIME("threadtime"),
+        LONG("long");
+    }
+
     sealed interface UiState {
         object Setting : UiState
         data class Logcat(
@@ -20,7 +30,7 @@ class LogcatViewModel : ViewModel() {
     private val _uiState = MutableStateFlow<UiState>(UiState.Setting)
     val uiState: StateFlow<UiState> = _uiState.asStateFlow()
 
-    fun readLogcat(format: String) {
+    fun readLogcat(format: LogcatFormat) {
         _uiState.value = UiState.Logcat(
             loading = true,
             logs = emptyList(),
@@ -28,7 +38,7 @@ class LogcatViewModel : ViewModel() {
 
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val process = Runtime.getRuntime().exec(arrayOf("logcat", "-v", format, "-d"))
+                val process = Runtime.getRuntime().exec(arrayOf("logcat", "-v", format.formatArg, "-d"))
                 val lines = process.inputStream.reader().buffered().readLines()
                 _uiState.value = UiState.Logcat(
                     loading = false,
