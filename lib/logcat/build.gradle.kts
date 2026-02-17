@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.mokelab.android.devportal"
+    namespace = "com.mokelab.android.devportal.logcat"
     compileSdk {
         version = release(36)
     }
@@ -46,17 +46,13 @@ dependencies {
     implementation(libs.mokelab.devportal.api)
 
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
 
-    api(libs.androidx.navigation3.ui)
-    api(libs.androidx.navigation3.runtime)
-
-    api(libs.hilt.android)
+    implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
 
     testImplementation(libs.junit)
@@ -68,7 +64,7 @@ publishing {
     publications {
         register<MavenPublication>("release") {
             groupId = "com.mokelab.android.devportal"
-            artifactId = "devportal"
+            artifactId = "logcat"
             version = "1.0.0"
             afterEvaluate {
                 from(components["release"])

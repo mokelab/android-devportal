@@ -1,8 +1,11 @@
+import org.gradle.api.publish.maven.MavenPublication
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+    id("maven-publish")
 }
 
 android {
@@ -34,6 +37,11 @@ android {
     buildFeatures {
         compose = true
     }
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
+    }
 }
 
 dependencies {
@@ -50,3 +58,23 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
+
+publishing {
+    publications {
+        register<MavenPublication>("release") {
+            groupId = "com.mokelab.android.devportal"
+            artifactId = "api"
+            version = "1.0.0"
+            afterEvaluate {
+                from(components["release"])
+            }
+        }
+    }
+    repositories {
+        maven {
+            name = "localRepo"
+            url = uri("${rootProject.rootDir.absolutePath}/repo")
+        }
+    }
+}
+

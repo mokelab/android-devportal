@@ -16,6 +16,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url = uri("${rootProject.projectDir.absolutePath}/repo")
+        }
     }
 }
 
@@ -23,3 +26,4 @@ rootProject.name = "DevPortal"
 include(":demo")
 include(":lib:devportal")
 include(":lib:api")
+include(":lib:logcat")

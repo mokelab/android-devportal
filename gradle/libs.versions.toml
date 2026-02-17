@@ -32,6 +32,9 @@ androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-te
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+mokelab-devportal-devportal = { group = "com.mokelab.android.devportal", name = "devportal", version = "1.0.0" }
+mokelab-devportal-api = { group = "com.mokelab.android.devportal", name = "api", version = "1.0.0" }
+mokelab-devportal-logcat = { group = "com.mokelab.android.devportal", name = "logcat", version = "1.0.0" }
 
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
