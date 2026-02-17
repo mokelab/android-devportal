@@ -5,6 +5,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityRetainedComponent
+import dagger.hilt.android.scopes.ActivityRetainedScoped
 
 object DevPortal
 
@@ -12,6 +13,7 @@ object DevPortal
 @InstallIn(ActivityRetainedComponent::class)
 object DevPortalModule {
     @Provides
+    @ActivityRetainedScoped
     fun provideNavigator(): DevPortalNavigator {
         return DevPortalNavigator(startDestination = DevPortal)
     }

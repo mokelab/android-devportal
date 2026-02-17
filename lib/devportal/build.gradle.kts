@@ -55,6 +55,7 @@ dependencies {
 
     api(libs.androidx.navigation3.ui)
     api(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
 
     api(libs.hilt.android)
     ksp(libs.hilt.compiler)

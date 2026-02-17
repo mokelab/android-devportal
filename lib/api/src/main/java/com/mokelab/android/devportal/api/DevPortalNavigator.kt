@@ -6,13 +6,13 @@ import dagger.hilt.android.scopes.ActivityRetainedScoped
 
 @ActivityRetainedScoped
 class DevPortalNavigator(startDestination: Any) {
-    val backStack : SnapshotStateList<Any> = mutableStateListOf(startDestination)
+    val backStack: SnapshotStateList<Any> = mutableStateListOf(startDestination)
 
-    fun goTo(destination: Any){
+    fun goTo(destination: Any) {
         backStack.add(destination)
     }
 
-    fun goBack(){
+    fun goBack() {
         backStack.removeLastOrNull()
     }
 }

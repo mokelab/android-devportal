@@ -20,10 +20,15 @@ class LogcatViewModel : ViewModel() {
     private val _uiState = MutableStateFlow<UiState>(UiState.Setting)
     val uiState: StateFlow<UiState> = _uiState.asStateFlow()
 
-    fun readLogcat() {
+    fun readLogcat(format: String) {
+        _uiState.value = UiState.Logcat(
+            loading = true,
+            logs = emptyList(),
+        )
+
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val process = Runtime.getRuntime().exec(arrayOf("logcat", "-v", "thread", "-d"))
+                val process = Runtime.getRuntime().exec(arrayOf("logcat", "-v", format, "-d"))
                 val lines = process.inputStream.reader().buffered().readLines()
                 _uiState.value = UiState.Logcat(
                     loading = false,
@@ -38,4 +43,3 @@ class LogcatViewModel : ViewModel() {
         }
     }
 }
-
