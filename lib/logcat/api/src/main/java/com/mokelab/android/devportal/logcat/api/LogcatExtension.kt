@@ -30,5 +30,5 @@ interface LogcatExtension {
      * @param start A callback function that should be called when the user wants to start reading logs.
      */
     @Composable
-    fun SettingContent(start: (format: LogcatFormat) -> Unit)
+    fun SettingContent(start: (format: LogcatFormat, filters: List<LogcatFilter>) -> Unit)
 }

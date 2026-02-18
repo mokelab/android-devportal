@@ -38,7 +38,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.mokelab.android.devportal.logcat.api.LogcatExtension
+import com.mokelab.android.devportal.logcat.api.LogcatFilter
 import com.mokelab.android.devportal.logcat.api.LogcatFormat
+import com.mokelab.android.devportal.logcat.api.LogcatPriority
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import dagger.multibindings.IntoSet
 
 @Composable
 fun LogcatScreen(
@@ -48,8 +56,12 @@ fun LogcatScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     LogcatScreen(
         uiState = uiState,
-        start = { format ->
-            viewModel.readLogcat(format)
+        extensions = viewModel.extensions,
+        start = { format, filters ->
+            viewModel.readLogcat(
+                format = format,
+                filters = filters,
+            )
         },
         back = back,
         toSetting = {
@@ -62,7 +74,8 @@ fun LogcatScreen(
 @Composable
 private fun LogcatScreen(
     uiState: LogcatViewModel.UiState,
-    start: (format: LogcatFormat) -> Unit,
+    extensions: List<@JvmSuppressWildcards LogcatExtension>,
+    start: (format: LogcatFormat, filters: List<LogcatFilter>) -> Unit,
     back: () -> Unit,
     toSetting: () -> Unit = {}, // 追加: 設定に戻すコールバック
 ) {
@@ -87,6 +100,7 @@ private fun LogcatScreen(
             LogcatViewModel.UiState.Setting -> {
                 SettingForm(
                     contentPadding = innerPadding,
+                    extensions = extensions,
                     start = start,
                 )
             }
@@ -140,53 +154,13 @@ private fun LogcatScreen(
 @Composable
 private fun SettingForm(
     contentPadding: PaddingValues,
-    start: (format: LogcatFormat) -> Unit,
+    extensions: List<@JvmSuppressWildcards LogcatExtension>,
+    start: (format: LogcatFormat, filters: List<LogcatFilter>) -> Unit,
 ) {
-    val formats = LogcatFormat.entries.toList()
-    var expanded by remember { mutableStateOf(false) }
-    var selectedFormat by remember { mutableStateOf(formats[0]) }
-
     Column(modifier = Modifier.padding(contentPadding)) {
-        ExposedDropdownMenuBox(
-            expanded = expanded,
-            onExpandedChange = { expanded = !expanded },
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .padding(top = 16.dp),
-        ) {
-            OutlinedTextField(
-                value = selectedFormat.formatArg,
-                onValueChange = {},
-                readOnly = true,
-                label = { Text("Format") },
-                trailingIcon = {
-                    ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
-                },
-                modifier = Modifier.menuAnchor(type = ExposedDropdownMenuAnchorType.PrimaryNotEditable)
-            )
-            ExposedDropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = false },
-            ) {
-                formats.forEach { format ->
-                    DropdownMenuItem(
-                        text = { Text(format.formatArg) },
-                        onClick = {
-                            selectedFormat = format
-                            expanded = false
-                        }
-                    )
-                }
-            }
-        }
-
-        Button(
-            onClick = {
-                start(selectedFormat)
-            },
-            modifier = Modifier.padding(start = 16.dp, top = 16.dp)
-        ) {
-            Text("Start")
+        extensions.forEach {
+            it.SettingContent(start = start)
+            HorizontalDivider()
         }
     }
 }
@@ -216,13 +190,79 @@ private fun LogList(
     }
 }
 
+@Module
+@InstallIn(SingletonComponent::class)
+object TmpModule {
+    @Provides
+    @IntoSet
+    fun provideDefaultExtensions(): LogcatExtension {
+        return object : LogcatExtension {
+            override val priority: Int
+                get() = 0
+
+            @OptIn(ExperimentalMaterial3Api::class)
+            @Composable
+            override fun SettingContent(
+                start: (format: LogcatFormat, filters: List<LogcatFilter>) -> Unit,
+            ) {
+                val formats = LogcatFormat.entries.toList()
+                var expanded by remember { mutableStateOf(false) }
+                var selectedFormat by remember { mutableStateOf(formats[0]) }
+
+                ExposedDropdownMenuBox(
+                    expanded = expanded,
+                    onExpandedChange = { expanded = !expanded },
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .padding(top = 16.dp),
+                ) {
+                    OutlinedTextField(
+                        value = selectedFormat.formatArg,
+                        onValueChange = {},
+                        readOnly = true,
+                        label = { Text("Format") },
+                        trailingIcon = {
+                            ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
+                        },
+                        modifier = Modifier.menuAnchor(type = ExposedDropdownMenuAnchorType.PrimaryNotEditable)
+                    )
+                    ExposedDropdownMenu(
+                        expanded = expanded,
+                        onDismissRequest = { expanded = false },
+                    ) {
+                        formats.forEach { format ->
+                            DropdownMenuItem(
+                                text = { Text(format.formatArg) },
+                                onClick = {
+                                    selectedFormat = format
+                                    expanded = false
+                                }
+                            )
+                        }
+                    }
+                }
+
+                Button(
+                    onClick = {
+                        start(selectedFormat, listOf(LogcatFilter("*", LogcatPriority.VERBOSE)))
+                    },
+                    modifier = Modifier.padding(start = 16.dp, top = 16.dp)
+                ) {
+                    Text("Start")
+                }
+            }
+        }
+    }
+}
+
 @Preview
 @Composable
 private fun SettingFormPreview() {
     Scaffold { innerPadding ->
         SettingForm(
             contentPadding = innerPadding,
-            start = {},
+            extensions = emptyList(),
+            start = { _, _ -> },
         )
     }
 }
