@@ -1,0 +1,124 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.mokelab.android.devportal",
+    "module": "logcat-api",
+    "version": "0.1.0",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "9.1.0"
+    }
+  },
+  "variants": [
+    {
+      "name": "releaseVariantReleaseApiPublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.3.10"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "logcat-api-0.1.0.aar",
+          "url": "logcat-api-0.1.0.aar",
+          "size": 7381,
+          "sha512": "ddbb4506529a554d75e17798a17b5c49e35378f7f0f5f877850ffa3ea3de37eb4bada36d5266abd8ef9a4141b80c6809de239e99010c3d9a8efd54f4233b21c2",
+          "sha256": "d44fb99cf74e66991d0a12b6aad92aec5fb2712e32e0952f86ec0a3c4bf1dbb8",
+          "sha1": "34800260612cbaac3e502fd77a88dd46873e5a1b",
+          "md5": "e0365a2df125efaafb827f0c431bbf44"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseRuntimePublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "androidx.core",
+          "module": "core-ktx",
+          "version": {
+            "requires": "1.17.0"
+          }
+        },
+        {
+          "group": "androidx.compose",
+          "module": "compose-bom",
+          "version": {
+            "requires": "2026.02.00"
+          },
+          "attributes": {
+            "org.gradle.category": "platform"
+          }
+        },
+        {
+          "group": "androidx.compose.runtime",
+          "module": "runtime"
+        },
+        {
+          "group": "com.google.dagger",
+          "module": "hilt-android",
+          "version": {
+            "requires": "2.58"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.3.10"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "logcat-api-0.1.0.aar",
+          "url": "logcat-api-0.1.0.aar",
+          "size": 7381,
+          "sha512": "ddbb4506529a554d75e17798a17b5c49e35378f7f0f5f877850ffa3ea3de37eb4bada36d5266abd8ef9a4141b80c6809de239e99010c3d9a8efd54f4233b21c2",
+          "sha256": "d44fb99cf74e66991d0a12b6aad92aec5fb2712e32e0952f86ec0a3c4bf1dbb8",
+          "sha1": "34800260612cbaac3e502fd77a88dd46873e5a1b",
+          "md5": "e0365a2df125efaafb827f0c431bbf44"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseSourcePublication",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "logcat-api-0.1.0-sources.jar",
+          "url": "logcat-api-0.1.0-sources.jar",
+          "size": 2736,
+          "sha512": "561b44484f3de2cac9f776b4be3a05200f9fc4087a695deb9577286acbb364ee112355ae12a3bd6f255255022cd2dfbd865d2de96f500488a11e7d549afdb6bb",
+          "sha256": "5d5667d174f54de1d82dceb14437f62569ad4e2cb5db9b453f04836698c43fc5",
+          "sha1": "96e1aafd97a8864a2a385521a0db962aa6a65324",
+          "md5": "ef792f9a395a7e0c68f2e6c280986384"
+        }
+      ]
+    }
+  ]
+}

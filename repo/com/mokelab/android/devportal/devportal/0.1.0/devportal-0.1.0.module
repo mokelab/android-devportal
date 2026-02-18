@@ -1,0 +1,192 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.mokelab.android.devportal",
+    "module": "devportal",
+    "version": "0.1.0",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "9.1.0"
+    }
+  },
+  "variants": [
+    {
+      "name": "releaseVariantReleaseApiPublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "androidx.navigation3",
+          "module": "navigation3-ui",
+          "version": {
+            "requires": "1.0.1"
+          }
+        },
+        {
+          "group": "androidx.navigation3",
+          "module": "navigation3-runtime",
+          "version": {
+            "requires": "1.0.1"
+          }
+        },
+        {
+          "group": "com.google.dagger",
+          "module": "hilt-android",
+          "version": {
+            "requires": "2.58"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.3.10"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "devportal-0.1.0.aar",
+          "url": "devportal-0.1.0.aar",
+          "size": 31192,
+          "sha512": "41b9e46126737bc4fa7634b39a1c59935189a97e6e26644b29a3fd87f0abaafa94fc172f6da81768d3ca08f5ab7a12b0964f93ee2171929493119f4fdefd2258",
+          "sha256": "f09acabeee4df392dfbdd2df59063c3f81e14760cd6e7593a86ddaf073c4229d",
+          "sha1": "23203a2b3faa7518e18d7ccbd6e7c563e3eef2c4",
+          "md5": "7d2a977fbfa61c1885f7ffee888e00de"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseRuntimePublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "com.mokelab.android.devportal",
+          "module": "api",
+          "version": {
+            "requires": "0.1.0"
+          }
+        },
+        {
+          "group": "androidx.core",
+          "module": "core-ktx",
+          "version": {
+            "requires": "1.17.0"
+          }
+        },
+        {
+          "group": "androidx.activity",
+          "module": "activity-compose",
+          "version": {
+            "requires": "1.12.4"
+          }
+        },
+        {
+          "group": "androidx.compose",
+          "module": "compose-bom",
+          "version": {
+            "requires": "2026.02.00"
+          },
+          "attributes": {
+            "org.gradle.category": "platform"
+          }
+        },
+        {
+          "group": "androidx.compose.ui",
+          "module": "ui"
+        },
+        {
+          "group": "androidx.compose.ui",
+          "module": "ui-graphics"
+        },
+        {
+          "group": "androidx.compose.ui",
+          "module": "ui-tooling-preview"
+        },
+        {
+          "group": "androidx.compose.material3",
+          "module": "material3"
+        },
+        {
+          "group": "androidx.lifecycle",
+          "module": "lifecycle-viewmodel-navigation3",
+          "version": {
+            "requires": "2.10.0"
+          }
+        },
+        {
+          "group": "androidx.navigation3",
+          "module": "navigation3-ui",
+          "version": {
+            "requires": "1.0.1"
+          }
+        },
+        {
+          "group": "androidx.navigation3",
+          "module": "navigation3-runtime",
+          "version": {
+            "requires": "1.0.1"
+          }
+        },
+        {
+          "group": "com.google.dagger",
+          "module": "hilt-android",
+          "version": {
+            "requires": "2.58"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.3.10"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "devportal-0.1.0.aar",
+          "url": "devportal-0.1.0.aar",
+          "size": 31192,
+          "sha512": "41b9e46126737bc4fa7634b39a1c59935189a97e6e26644b29a3fd87f0abaafa94fc172f6da81768d3ca08f5ab7a12b0964f93ee2171929493119f4fdefd2258",
+          "sha256": "f09acabeee4df392dfbdd2df59063c3f81e14760cd6e7593a86ddaf073c4229d",
+          "sha1": "23203a2b3faa7518e18d7ccbd6e7c563e3eef2c4",
+          "md5": "7d2a977fbfa61c1885f7ffee888e00de"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseSourcePublication",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "devportal-0.1.0-sources.jar",
+          "url": "devportal-0.1.0-sources.jar",
+          "size": 6899,
+          "sha512": "1a309ec76df6d9fda69b540fc1dba4605fb6034729bf983d293fe9f0757208936a1c45ac1db5525f5935bcf0182011c3728c5cd3cce3184377dac96120e7efbc",
+          "sha256": "6cca49fcc37ac0369acb5eee04e49a397772ef5115855b3efc805677c4799200",
+          "sha1": "c8e31389b62c2fc0f222dd4b9f157559bc16d5c4",
+          "md5": "414be9e306cf2e1b79882fc332dbb764"
+        }
+      ]
+    }
+  ]
+}
