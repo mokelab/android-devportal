@@ -1,0 +1,106 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.mokelab.android.devportal",
+    "module": "bom",
+    "version": "0.1.0",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "9.1.0"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "platform",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencyConstraints": [
+        {
+          "group": "com.mokelab.android.devportal",
+          "module": "api",
+          "version": {
+            "requires": "0.1.0"
+          }
+        },
+        {
+          "group": "com.mokelab.android.devportal",
+          "module": "devportal",
+          "version": {
+            "requires": "0.1.0"
+          }
+        },
+        {
+          "group": "com.mokelab.android.devportal",
+          "module": "logcat-api",
+          "version": {
+            "requires": "0.1.0"
+          }
+        },
+        {
+          "group": "com.mokelab.android.devportal",
+          "module": "logcat-basic",
+          "version": {
+            "requires": "0.1.0"
+          }
+        },
+        {
+          "group": "com.mokelab.android.devportal",
+          "module": "logcat-core",
+          "version": {
+            "requires": "0.1.0"
+          }
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "platform",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencyConstraints": [
+        {
+          "group": "com.mokelab.android.devportal",
+          "module": "api",
+          "version": {
+            "requires": "0.1.0"
+          }
+        },
+        {
+          "group": "com.mokelab.android.devportal",
+          "module": "devportal",
+          "version": {
+            "requires": "0.1.0"
+          }
+        },
+        {
+          "group": "com.mokelab.android.devportal",
+          "module": "logcat-api",
+          "version": {
+            "requires": "0.1.0"
+          }
+        },
+        {
+          "group": "com.mokelab.android.devportal",
+          "module": "logcat-basic",
+          "version": {
+            "requires": "0.1.0"
+          }
+        },
+        {
+          "group": "com.mokelab.android.devportal",
+          "module": "logcat-core",
+          "version": {
+            "requires": "0.1.0"
+          }
+        }
+      ]
+    }
+  ]
+}

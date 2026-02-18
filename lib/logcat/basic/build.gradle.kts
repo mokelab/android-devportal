@@ -75,7 +75,7 @@ publishing {
     repositories {
         maven {
             name = "localRepo"
-            url = uri("${rootProject.rootDir.absolutePath}/repo")
+            url = uri("${rootProject.rootDir.absolutePath}/docs/repo")
         }
     }
 }

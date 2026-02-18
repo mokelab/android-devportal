@@ -28,7 +28,7 @@ publishing {
     }
     repositories {
         maven {
-            url = uri("${rootProject.rootDir.absolutePath}/repo")
+            url = uri("${rootProject.rootDir.absolutePath}/docs/repo")
         }
     }
 }
