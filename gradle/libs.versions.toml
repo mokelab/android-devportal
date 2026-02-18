@@ -1,5 +1,5 @@
 [versions]
-devportal = "0.1.0"
+devportal = "0.1.1"
 
 agp = "9.0.0-rc02"
 coreKtx = "1.17.0"

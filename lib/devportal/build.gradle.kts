@@ -43,7 +43,7 @@ android {
 }
 
 dependencies {
-    implementation(libs.mokelab.devportal.api)
+    api(libs.mokelab.devportal.api)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)
