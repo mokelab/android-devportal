@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/lib/bom" />
             <option value="$PROJECT_DIR$/lib/devportal" />
             <option value="$PROJECT_DIR$/lib/logcat" />
+            <option value="$PROJECT_DIR$/lib/logcat/core" />
           </set>
         </option>
       </GradleProjectSettings>

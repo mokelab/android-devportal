@@ -1,4 +1,4 @@
-package com.mokelab.android.devportal.logcat
+package com.mokelab.android.devportal.logcat.core
 
 import androidx.navigation3.runtime.EntryProviderScope
 import com.mokelab.android.devportal.api.DevPortalFeature

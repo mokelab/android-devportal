@@ -1,4 +1,4 @@
-package com.mokelab.android.devportal.logcat
+package com.mokelab.android.devportal.logcat.core
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -40,7 +40,8 @@ class LogcatViewModel : ViewModel() {
 
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val process = Runtime.getRuntime().exec(arrayOf("logcat", "-v", format.formatArg, "-d"))
+                val process =
+                    Runtime.getRuntime().exec(arrayOf("logcat", "-v", format.formatArg, "-d"))
                 val lines = process.inputStream.reader().buffered().readLines()
                 _uiState.value = UiState.Logcat(
                     loading = false,

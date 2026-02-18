@@ -41,7 +41,7 @@ android {
 
 dependencies {
     debugImplementation(libs.mokelab.devportal.devportal)
-    debugImplementation(libs.mokelab.devportal.logcat)
+    debugImplementation(libs.mokelab.devportal.logcat.core)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

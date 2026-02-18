@@ -40,6 +40,7 @@ mokelab-devportal-bom = { group = "com.mokelab.android.devportal", name = "bom",
 mokelab-devportal-devportal = { group = "com.mokelab.android.devportal", name = "devportal", version.ref = "devportal" }
 mokelab-devportal-api = { group = "com.mokelab.android.devportal", name = "api", version.ref = "devportal" }
 mokelab-devportal-logcat = { group = "com.mokelab.android.devportal", name = "logcat", version.ref = "devportal" }
+mokelab-devportal-logcat-core = { group = "com.mokelab.android.devportal", name = "logcat-core", version.ref = "devportal" }
 
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }

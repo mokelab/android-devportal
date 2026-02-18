@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.mokelab.android.devportal.logcat"
+    namespace = "com.mokelab.android.devportal.logcat.core"
     compileSdk {
         version = release(36)
     }
@@ -69,7 +69,7 @@ publishing {
     publications {
         register<MavenPublication>("release") {
             groupId = "com.mokelab.android.devportal"
-            artifactId = "logcat"
+            artifactId = "logcat-core"
             version = "1.0.0"
             afterEvaluate {
                 from(components["release"])

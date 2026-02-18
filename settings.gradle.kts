@@ -26,5 +26,5 @@ rootProject.name = "DevPortal"
 include(":demo")
 include(":lib:devportal")
 include(":lib:api")
-include(":lib:logcat")
+include(":lib:logcat:core")
 include(":lib:bom")
