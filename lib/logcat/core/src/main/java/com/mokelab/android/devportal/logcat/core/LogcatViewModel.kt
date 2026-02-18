@@ -2,22 +2,17 @@ package com.mokelab.android.devportal.logcat.core
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mokelab.android.devportal.logcat.api.LogcatFormat
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LogcatViewModel : ViewModel() {
-    enum class LogcatFormat(val formatArg: String) {
-        BRIEF("brief"),
-        PROCESS("process"),
-        TAG("tag"),
-        RAW("raw"),
-        TIME("time"),
-        THREADTIME("threadtime"),
-        LONG("long");
-    }
+@HiltViewModel
+class LogcatViewModel @Inject constructor() : ViewModel() {
 
     sealed interface UiState {
         object Setting : UiState

@@ -36,13 +36,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
+import com.mokelab.android.devportal.logcat.api.LogcatFormat
 
 @Composable
 fun LogcatScreen(
     back: () -> Unit,
-    viewModel: LogcatViewModel = viewModel(),
+    viewModel: LogcatViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     LogcatScreen(
@@ -61,7 +62,7 @@ fun LogcatScreen(
 @Composable
 private fun LogcatScreen(
     uiState: LogcatViewModel.UiState,
-    start: (format: LogcatViewModel.LogcatFormat) -> Unit,
+    start: (format: LogcatFormat) -> Unit,
     back: () -> Unit,
     toSetting: () -> Unit = {}, // 追加: 設定に戻すコールバック
 ) {
@@ -139,9 +140,9 @@ private fun LogcatScreen(
 @Composable
 private fun SettingForm(
     contentPadding: PaddingValues,
-    start: (format: LogcatViewModel.LogcatFormat) -> Unit,
+    start: (format: LogcatFormat) -> Unit,
 ) {
-    val formats = LogcatViewModel.LogcatFormat.entries.toList()
+    val formats = LogcatFormat.entries.toList()
     var expanded by remember { mutableStateOf(false) }
     var selectedFormat by remember { mutableStateOf(formats[0]) }
 

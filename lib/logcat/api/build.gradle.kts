@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.mokelab.android.devportal.logcat.core"
+    namespace = "com.mokelab.android.devportal.logcat.api"
     compileSdk {
         version = release(36)
     }
@@ -43,35 +43,24 @@ android {
 }
 
 dependencies {
-    implementation(libs.mokelab.devportal.api)
-    implementation(libs.mokelab.devportal.logcat.api)
-
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
+
     implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.ui.graphics)
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.material.icons)
+    implementation(libs.androidx.compose.runtime)
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
-    implementation(libs.hilt.lifecycle.viewmodel.compose)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    debugImplementation(libs.androidx.compose.ui.tooling)
-    debugImplementation(libs.androidx.compose.ui.test.manifest)
 }
 
 publishing {
     publications {
         register<MavenPublication>("release") {
             groupId = "com.mokelab.android.devportal"
-            artifactId = "logcat-core"
+            artifactId = "logcat-api"
             version = libs.versions.devportal.get()
             afterEvaluate {
                 from(components["release"])
