@@ -17,7 +17,7 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven {
-            url = uri("${rootProject.projectDir.absolutePath}/repo")
+            url = uri("${rootProject.projectDir.absolutePath}/docs/repo")
         }
     }
 }
