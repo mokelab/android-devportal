@@ -12,26 +12,17 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuAnchorType
-import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,12 +32,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mokelab.android.devportal.logcat.api.LogcatExtension
 import com.mokelab.android.devportal.logcat.api.LogcatFilter
 import com.mokelab.android.devportal.logcat.api.LogcatFormat
-import com.mokelab.android.devportal.logcat.api.LogcatPriority
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import dagger.multibindings.IntoSet
 
 @Composable
 fun LogcatScreen(
@@ -77,7 +62,7 @@ private fun LogcatScreen(
     extensions: List<@JvmSuppressWildcards LogcatExtension>,
     start: (format: LogcatFormat, filters: List<LogcatFilter>) -> Unit,
     back: () -> Unit,
-    toSetting: () -> Unit = {}, // 追加: 設定に戻すコールバック
+    toSetting: () -> Unit = {},
 ) {
     Scaffold(
         topBar = {
@@ -136,7 +121,7 @@ private fun LogcatScreen(
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Close,
-                                contentDescription = "設定に戻る"
+                                contentDescription = "Close"
                             )
                         }
                     }
@@ -186,71 +171,6 @@ private fun LogList(
                 }
             )
             HorizontalDivider()
-        }
-    }
-}
-
-@Module
-@InstallIn(SingletonComponent::class)
-object TmpModule {
-    @Provides
-    @IntoSet
-    fun provideDefaultExtensions(): LogcatExtension {
-        return object : LogcatExtension {
-            override val priority: Int
-                get() = 0
-
-            @OptIn(ExperimentalMaterial3Api::class)
-            @Composable
-            override fun SettingContent(
-                start: (format: LogcatFormat, filters: List<LogcatFilter>) -> Unit,
-            ) {
-                val formats = LogcatFormat.entries.toList()
-                var expanded by remember { mutableStateOf(false) }
-                var selectedFormat by remember { mutableStateOf(formats[0]) }
-
-                ExposedDropdownMenuBox(
-                    expanded = expanded,
-                    onExpandedChange = { expanded = !expanded },
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .padding(top = 16.dp),
-                ) {
-                    OutlinedTextField(
-                        value = selectedFormat.formatArg,
-                        onValueChange = {},
-                        readOnly = true,
-                        label = { Text("Format") },
-                        trailingIcon = {
-                            ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
-                        },
-                        modifier = Modifier.menuAnchor(type = ExposedDropdownMenuAnchorType.PrimaryNotEditable)
-                    )
-                    ExposedDropdownMenu(
-                        expanded = expanded,
-                        onDismissRequest = { expanded = false },
-                    ) {
-                        formats.forEach { format ->
-                            DropdownMenuItem(
-                                text = { Text(format.formatArg) },
-                                onClick = {
-                                    selectedFormat = format
-                                    expanded = false
-                                }
-                            )
-                        }
-                    }
-                }
-
-                Button(
-                    onClick = {
-                        start(selectedFormat, listOf(LogcatFilter("*", LogcatPriority.VERBOSE)))
-                    },
-                    modifier = Modifier.padding(start = 16.dp, top = 16.dp)
-                ) {
-                    Text("Start")
-                }
-            }
         }
     }
 }

@@ -70,7 +70,7 @@ publishing {
         register<MavenPublication>("release") {
             groupId = "com.mokelab.android.devportal"
             artifactId = "devportal"
-            version = "1.0.0"
+            version = libs.versions.devportal.get()
             afterEvaluate {
                 from(components["release"])
             }

@@ -1,5 +1,5 @@
 [versions]
-devportal = "1.0.0"
+devportal = "0.1.0"
 
 agp = "9.0.0-rc02"
 coreKtx = "1.17.0"
@@ -42,8 +42,9 @@ mokelab-devportal-bom = { group = "com.mokelab.android.devportal", name = "bom",
 mokelab-devportal-devportal = { group = "com.mokelab.android.devportal", name = "devportal", version.ref = "devportal" }
 mokelab-devportal-api = { group = "com.mokelab.android.devportal", name = "api", version.ref = "devportal" }
 mokelab-devportal-logcat = { group = "com.mokelab.android.devportal", name = "logcat", version.ref = "devportal" }
-mokelab-devportal-logcat-core = { group = "com.mokelab.android.devportal", name = "logcat-core", version.ref = "devportal" }
 mokelab-devportal-logcat-api = { group = "com.mokelab.android.devportal", name = "logcat-api", version.ref = "devportal" }
+mokelab-devportal-logcat-basic = { group = "com.mokelab.android.devportal", name = "logcat-basic", version.ref = "devportal" }
+mokelab-devportal-logcat-core = { group = "com.mokelab.android.devportal", name = "logcat-core", version.ref = "devportal" }
 
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }

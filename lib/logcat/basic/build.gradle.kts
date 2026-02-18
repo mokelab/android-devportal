@@ -1,24 +1,22 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.maven.publish)
 }
 
 android {
-    namespace = "com.mokelab.android.devportal.demo"
+    namespace = "com.mokelab.android.devportal.logcat.basic"
     compileSdk {
         version = release(36)
     }
 
     defaultConfig {
-        applicationId = "com.mokelab.android.devportal"
         minSdk = 24
-        targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -37,16 +35,18 @@ android {
     buildFeatures {
         compose = true
     }
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
+    }
 }
 
 dependencies {
-    debugImplementation(libs.mokelab.devportal.devportal)
-    debugImplementation(libs.mokelab.devportal.logcat.core)
-    debugImplementation(libs.mokelab.devportal.logcat.basic)
+    implementation(libs.mokelab.devportal.logcat.api)
 
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
+
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
@@ -59,8 +59,23 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-    debugImplementation(libs.androidx.compose.ui.tooling)
-    debugImplementation(libs.androidx.compose.ui.test.manifest)
+}
+
+publishing {
+    publications {
+        register<MavenPublication>("release") {
+            groupId = "com.mokelab.android.devportal"
+            artifactId = "logcat-basic"
+            version = libs.versions.devportal.get()
+            afterEvaluate {
+                from(components["release"])
+            }
+        }
+    }
+    repositories {
+        maven {
+            name = "localRepo"
+            url = uri("${rootProject.rootDir.absolutePath}/repo")
+        }
+    }
 }

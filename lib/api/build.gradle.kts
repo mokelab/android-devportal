@@ -1,5 +1,3 @@
-import org.gradle.api.publish.maven.MavenPublication
-
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.compose)
@@ -64,7 +62,7 @@ publishing {
         register<MavenPublication>("release") {
             groupId = "com.mokelab.android.devportal"
             artifactId = "api"
-            version = "1.0.0"
+            version = libs.versions.devportal.get()
             afterEvaluate {
                 from(components["release"])
             }

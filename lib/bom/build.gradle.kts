@@ -11,6 +11,8 @@ dependencies {
     constraints {
         api(libs.mokelab.devportal.api)
         api(libs.mokelab.devportal.devportal)
+        api(libs.mokelab.devportal.logcat.api)
+        api(libs.mokelab.devportal.logcat.basic)
         api(libs.mokelab.devportal.logcat.core)
     }
 }
