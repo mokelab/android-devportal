@@ -1,7 +1,8 @@
 # Android DevPortal
 
-This library provides a module-style UI for Android app developers. It is useful to add development
-tool to your app when development build.
+This library provides a module-style UI for Android app developers. It is useful for adding
+development
+tools to your app in development builds.
 
 # Quick Start
 
@@ -77,7 +78,7 @@ Currently this library provides `LogcatFeature` to show logcat in the UI. You ca
 own feature by implementing `DevPortalFeature` interface.
 
 Hilt collects all `DevPortalFeature` automatically so you don't need to write Kotlin code after
-adding feature module. Original Idea
+adding feature module. Original idea
 is [Navigation 3 recipe Hilt modular](https://github.com/android/nav3-recipes/tree/main/app/src/main/java/com/example/nav3recipes/modular/hilt)
 
 # How to add your own DevPortalFeature
@@ -94,7 +95,7 @@ plugins {
 }
 
 android {
-    ///
+    /// ...
     buildFeatures {
         compose = true
     }
@@ -130,7 +131,7 @@ object DevPortalMyModule {
         return object : DevPortalFeature {
             override val name: String = "My feature"
             override val installer: EntryProviderScope<Any>.() -> Unit = {
-                entry<LogcatRoot> {
+                entry<MyRoot> {
                     MyScreen(
                         back = {
                             navigator.goBack()
