@@ -45,7 +45,6 @@ android {
 dependencies {
     implementation(libs.mokelab.devportal.logcat.api)
 
-    implementation(libs.androidx.core.ktx)
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
