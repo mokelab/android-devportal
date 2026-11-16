@@ -160,6 +160,11 @@ dependencies {
 If your current work is done and you don't need to show this feature in DevPortal, you can remove
 this module from dependencies. Hilt will automatically remove this feature from DevPortal.
 
+# QuickMenu
+
+`quickmenu-core` opens a debug menu in a bottom sheet over the current screen from a notification
+action, without pausing the Activity. See [lib/quickmenu/core/README.md](lib/quickmenu/core/README.md).
+
 # License
 
 Apache License Version 2.0
