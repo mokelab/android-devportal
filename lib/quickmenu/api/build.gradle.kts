@@ -41,8 +41,9 @@ android {
 }
 
 dependencies {
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.compose.runtime)
+    api(platform(libs.androidx.compose.bom))
+    // Exposed because QuickMenuItem.Content is @Composable.
+    api(libs.androidx.compose.runtime)
     api(libs.androidx.activity)
 
     testImplementation(libs.junit)

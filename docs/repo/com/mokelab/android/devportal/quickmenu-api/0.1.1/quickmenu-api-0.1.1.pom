@@ -24,6 +24,11 @@
   </dependencyManagement>
   <dependencies>
     <dependency>
+      <groupId>androidx.compose.runtime</groupId>
+      <artifactId>runtime</artifactId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>androidx.activity</groupId>
       <artifactId>activity</artifactId>
       <version>1.12.0</version>
@@ -34,11 +39,6 @@
       <artifactId>kotlin-stdlib</artifactId>
       <version>2.2.10</version>
       <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>androidx.compose.runtime</groupId>
-      <artifactId>runtime</artifactId>
-      <scope>runtime</scope>
     </dependency>
   </dependencies>
 </project>

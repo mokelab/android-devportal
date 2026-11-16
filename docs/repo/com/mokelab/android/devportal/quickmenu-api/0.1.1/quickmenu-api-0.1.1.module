@@ -24,6 +24,20 @@
       },
       "dependencies": [
         {
+          "group": "androidx.compose",
+          "module": "compose-bom",
+          "version": {
+            "requires": "2025.11.01"
+          },
+          "attributes": {
+            "org.gradle.category": "platform"
+          }
+        },
+        {
+          "group": "androidx.compose.runtime",
+          "module": "runtime"
+        },
+        {
           "group": "androidx.activity",
           "module": "activity",
           "version": {

@@ -1,5 +1,6 @@
 package com.mokelab.android.devportal
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -84,11 +85,32 @@ private val devPortalItem = object : QuickMenuItem {
     }
 }
 
+/** Shows a host dialog, to check that QuickMenu opens on top of it. */
+private val dialogItem = object : QuickMenuItem {
+    override val priority = 25
+
+    @Composable
+    override fun Content(scope: QuickMenuScope) {
+        TextButton(
+            onClick = {
+                scope.dismiss()
+                AlertDialog.Builder(scope.activity)
+                    .setTitle("Host dialog")
+                    .setMessage("Open QuickMenu from the notification while this dialog is shown.")
+                    .setPositiveButton(android.R.string.ok, null)
+                    .show()
+            },
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp),
+        ) { Text("Show dialog") }
+    }
+}
+
 @Module
 @InstallIn(SingletonComponent::class)
 object DemoQuickMenuModule {
     @Provides @IntoSet fun lifecycle(): QuickMenuItem = lifecycleItem
     @Provides @IntoSet fun flag(): QuickMenuItem = flagItem
     @Provides @IntoSet fun toast(): QuickMenuItem = toastItem
+    @Provides @IntoSet fun dialog(): QuickMenuItem = dialogItem
     @Provides @IntoSet fun devPortal(): QuickMenuItem = devPortalItem
 }

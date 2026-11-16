@@ -36,7 +36,7 @@ This is the most important thing to know before editing. Inter-module dependenci
 Consequences:
 
 - Editing source in `lib/api` (or any library) does **not** affect `demo` or dependent libraries until that module is re-published into `docs/repo`.
-- Publish in dependency order when an API changes: `api` → `devportal` / `logcat:api` → `logcat:core`, `logcat:basic`, `file:core` → `bom`.
+- Publish in dependency order when an API changes: `api` → `devportal` / `logcat:api` → `logcat:core`, `logcat:basic`, `file:core`; `quickmenu:api` → `quickmenu:core`; then `bom`.
 - All artifacts share one version: `devportal` in `gradle/libs.versions.toml`. Re-publishing without bumping overwrites the existing version in `docs/repo` (Gradle may serve a cached copy; use `--refresh-dependencies` if a change doesn't show up).
 - Publishing rewrites `maven-metadata.xml` and its checksum files, so a large `docs/repo` diff after publishing is expected and should be committed together with the source change.
 - A brand-new module can't be consumed by `demo` until it has been published once.
@@ -46,7 +46,7 @@ Consequences:
 1. `include(...)` it in `settings.gradle.kts`.
 2. Add its coordinate to `gradle/libs.versions.toml` (`mokelab-devportal-<name>`, `version.ref = "devportal"`).
 3. Copy the `publishing { ... }` block from an existing module (`release` publication, `localRepo` repository). Artifact ids flatten the path: `lib/logcat/core` → `logcat-core`.
-4. Add it to the constraints in `lib/bom/build.gradle.kts` (`file-core` is currently missing from the BOM, and the BOM has only been published at 0.1.0).
+4. Add it to the constraints in `lib/bom/build.gradle.kts` (`file-core` is currently missing from the BOM; the BOM is published at 0.1.0 and 0.1.1).
 
 ## Architecture
 
@@ -81,7 +81,8 @@ A separate entry point from `DevPortalActivity`: an ongoing notification whose a
 
 - Started by App Startup (`QuickMenuInitializer`), so the host adds only the dependency. The initializer runs before `Application.onCreate` and must not touch Hilt; items are resolved when the menu opens via `EntryPointAccessors` (`QuickMenuEntryPoint`).
 - The sheet is a zero-sized `ComposeView` added to the resumed Activity's decor view, not a separate Activity, so the host Activity is never paused. Only `ComponentActivity` is supported.
-- A broadcast notification action does not collapse the notification shade, so the sheet is shown once the Activity regains window focus (the user closes the shade).
+- A broadcast notification action does not collapse the notification shade. The sheet is shown immediately (behind the shade) and is visible once the user closes it. Do not wait for window focus: while the host shows a dialog the Activity's window never regains focus.
+- The notification is (re)posted on every Activity resume and cancelled on process `onStop` and at install (leftover from a crashed process).
 - Items are contributed with `@IntoSet` in `SingletonComponent` and rendered in a `LazyColumn` by `priority`. No navigation inside the sheet.
 - The library declares `POST_NOTIFICATIONS` but never requests it; the host/user grants it.
 

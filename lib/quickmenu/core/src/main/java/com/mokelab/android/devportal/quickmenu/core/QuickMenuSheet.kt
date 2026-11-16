@@ -44,12 +44,9 @@ internal fun QuickMenuSheet(
             coroutineScope.launch { sheetState.hide() }.invokeOnCompletion { onDismissed() }
         }
     }
-    val rows = remember(items, scope) {
-        items.map { item -> @Composable { item.Content(scope) } }
-    }
     QuickMenuTheme {
         ModalBottomSheet(onDismissRequest = onDismissed, sheetState = sheetState) {
-            QuickMenuContent(rows = rows)
+            QuickMenuContent(items = items, scope = scope)
         }
     }
 }
@@ -62,14 +59,14 @@ private class QuickMenuScopeImpl(
 }
 
 @Composable
-private fun QuickMenuContent(rows: List<@Composable () -> Unit>) {
+private fun QuickMenuContent(items: List<QuickMenuItem>, scope: QuickMenuScope) {
     Column {
         Text(
             text = stringResource(R.string.quickmenu_core_sheet_title),
             style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
         )
-        if (rows.isEmpty()) {
+        if (items.isEmpty()) {
             Text(
                 text = stringResource(R.string.quickmenu_core_empty),
                 style = MaterialTheme.typography.bodyMedium,
@@ -77,7 +74,7 @@ private fun QuickMenuContent(rows: List<@Composable () -> Unit>) {
             )
         } else {
             LazyColumn(contentPadding = PaddingValues(bottom = 16.dp)) {
-                items(rows) { row -> row() }
+                items(items) { item -> item.Content(scope) }
             }
         }
     }
@@ -96,16 +93,23 @@ private fun QuickMenuTheme(content: @Composable () -> Unit) {
     MaterialTheme(colorScheme = colorScheme, content = content)
 }
 
+private class PreviewItem(private val label: String) : QuickMenuItem {
+    override val priority = 0
+
+    @Composable
+    override fun Content(scope: QuickMenuScope) {
+        Text(label, modifier = Modifier.padding(16.dp))
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 private fun QuickMenuContentPreview() {
     QuickMenuTheme {
         Surface {
             QuickMenuContent(
-                rows = listOf(
-                    { Text("Item 1", modifier = Modifier.padding(16.dp)) },
-                    { Text("Item 2", modifier = Modifier.padding(16.dp)) },
-                ),
+                items = listOf(PreviewItem("Item 1"), PreviewItem("Item 2")),
+                scope = PreviewScope,
             )
         }
     }
@@ -116,7 +120,13 @@ private fun QuickMenuContentPreview() {
 private fun QuickMenuContentEmptyPreview() {
     QuickMenuTheme {
         Surface {
-            QuickMenuContent(rows = emptyList())
+            QuickMenuContent(items = emptyList(), scope = PreviewScope)
         }
     }
+}
+
+/** Preview items must not touch [QuickMenuScope.activity]. */
+private object PreviewScope : QuickMenuScope {
+    override val activity: ComponentActivity get() = error("No Activity in preview")
+    override fun dismiss() {}
 }

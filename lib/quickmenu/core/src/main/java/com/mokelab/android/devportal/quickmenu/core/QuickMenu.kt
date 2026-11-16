@@ -8,6 +8,7 @@ import androidx.activity.ComponentActivity
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ProcessLifecycleOwner
+import com.mokelab.android.devportal.quickmenu.api.QuickMenuItem
 import dagger.hilt.android.EntryPointAccessors
 import java.lang.ref.WeakReference
 
@@ -20,9 +21,10 @@ internal object QuickMenu {
     fun install(application: Application) {
         this.application = application
         QuickMenuNotification.createChannel(application)
+        // A notification left over from a process that died in the foreground (onStop never ran).
+        QuickMenuNotification.cancel(application)
         application.registerActivityLifecycleCallbacks(ActivityTracker())
         ProcessLifecycleOwner.get().lifecycle.addObserver(object : DefaultLifecycleObserver {
-            override fun onStart(owner: LifecycleOwner) = QuickMenuNotification.show(application)
             override fun onStop(owner: LifecycleOwner) = QuickMenuNotification.cancel(application)
         })
     }
@@ -37,17 +39,25 @@ internal object QuickMenu {
             Log.w(TAG, "${activity.javaClass.name} is not a ComponentActivity. QuickMenu is not shown.")
             return
         }
-        QuickMenuOverlay.show(activity, loadItems())
+        val items = loadItems() ?: return
+        QuickMenuOverlay.show(activity, items)
     }
 
-    private fun loadItems() =
+    private fun loadItems(): List<QuickMenuItem>? = try {
         EntryPointAccessors.fromApplication(application, QuickMenuEntryPoint::class.java)
             .quickMenuItems()
             .sortedBy { it.priority }
+    } catch (e: IllegalStateException) {
+        Log.w(TAG, "Hilt is not set up (@HiltAndroidApp is required). QuickMenu is not shown.", e)
+        null
+    }
 
     private class ActivityTracker : Application.ActivityLifecycleCallbacks {
         override fun onActivityResumed(activity: Activity) {
             resumedActivity = WeakReference(activity)
+            // Post (again) on every resume: covers the first start, a permission granted while in
+            // the foreground and a notification swiped away (ongoing ones are dismissible on 14+).
+            QuickMenuNotification.show(activity.applicationContext)
         }
 
         override fun onActivityPaused(activity: Activity) {
