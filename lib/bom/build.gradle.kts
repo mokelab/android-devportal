@@ -14,6 +14,8 @@ dependencies {
         api(libs.mokelab.devportal.logcat.api)
         api(libs.mokelab.devportal.logcat.basic)
         api(libs.mokelab.devportal.logcat.core)
+        api(libs.mokelab.devportal.quickmenu.api)
+        api(libs.mokelab.devportal.quickmenu.core)
     }
 }
 

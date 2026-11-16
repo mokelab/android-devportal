@@ -57,6 +57,8 @@ lib/logcat/api   LogcatExtension, LogcatFormat, LogcatFilter (contract for logca
 lib/logcat/core  Logcat feature                              (depends on api + logcat-api)
 lib/logcat/basic Default LogcatExtension (format/filter form)
 lib/file/core    File browser feature                        (depends on api)
+lib/quickmenu/api  QuickMenuItem, QuickMenuScope             (contract for quick menu items)
+lib/quickmenu/core Notification action -> BottomSheet menu   (depends on quickmenu-api; independent of api/devportal)
 lib/bom          java-platform BOM
 demo             Sample app; pulls the libs as debugImplementation
 ```
@@ -72,6 +74,16 @@ demo             Sample app; pulls the libs as debugImplementation
 ### Logcat extension mechanism
 
 The Logcat feature has a second plugin layer. `LogcatExtension` implementations are contributed with `@IntoSet` in `SingletonComponent`, injected into `LogcatViewModel` and sorted by `priority`. Each extension renders `SettingContent(start)` on the settings screen and receives `onStartReadLog` / `onFinishReadLog` callbacks. `logcat-core` alone shows no settings UI — `logcat-basic` supplies the default format/filter form. Logs are read by running `logcat -v <format> <filters> -d` in-process and keeping the last 200 lines.
+
+### QuickMenu
+
+A separate entry point from `DevPortalActivity`: an ongoing notification whose action opens a `ModalBottomSheet` over the current screen.
+
+- Started by App Startup (`QuickMenuInitializer`), so the host adds only the dependency. The initializer runs before `Application.onCreate` and must not touch Hilt; items are resolved when the menu opens via `EntryPointAccessors` (`QuickMenuEntryPoint`).
+- The sheet is a zero-sized `ComposeView` added to the resumed Activity's decor view, not a separate Activity, so the host Activity is never paused. Only `ComponentActivity` is supported.
+- A broadcast notification action does not collapse the notification shade, so the sheet is shown once the Activity regains window focus (the user closes the shade).
+- Items are contributed with `@IntoSet` in `SingletonComponent` and rendered in a `LazyColumn` by `priority`. No navigation inside the sheet.
+- The library declares `POST_NOTIFICATIONS` but never requests it; the host/user grants it.
 
 ### Host app requirements
 

@@ -1,0 +1,160 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.mokelab.android.devportal",
+    "module": "quickmenu-core",
+    "version": "0.1.1",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "9.1.0"
+    }
+  },
+  "variants": [
+    {
+      "name": "releaseVariantReleaseApiPublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "com.mokelab.android.devportal",
+          "module": "quickmenu-api",
+          "version": {
+            "requires": "0.1.1"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.2.10"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "quickmenu-core-0.1.1.aar",
+          "url": "quickmenu-core-0.1.1.aar",
+          "size": 43193,
+          "sha512": "479f8aa06da9d5b87cfa78dcb2d226e4393b2c909882913c53a35fce36775a08898dd9eeb24a5dbceee46c93a19e8b30cc3ab4e61b098b39f4a0222978353d66",
+          "sha256": "ea9b932c6d8d970cee0ca0589e134026a646e8d499296516d36ffaf9db88a3a6",
+          "sha1": "f28d3b7be38583a9a3bfe5c7b2992c731e258012",
+          "md5": "b75f371f71d2eb009606217ae102629f"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseRuntimePublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "androidx.core",
+          "module": "core-ktx",
+          "version": {
+            "requires": "1.17.0"
+          }
+        },
+        {
+          "group": "androidx.startup",
+          "module": "startup-runtime",
+          "version": {
+            "requires": "1.2.0"
+          }
+        },
+        {
+          "group": "androidx.lifecycle",
+          "module": "lifecycle-process",
+          "version": {
+            "requires": "2.10.0"
+          }
+        },
+        {
+          "group": "androidx.compose",
+          "module": "compose-bom",
+          "version": {
+            "requires": "2025.11.01"
+          },
+          "attributes": {
+            "org.gradle.category": "platform"
+          }
+        },
+        {
+          "group": "androidx.compose.ui",
+          "module": "ui"
+        },
+        {
+          "group": "androidx.compose.ui",
+          "module": "ui-tooling-preview"
+        },
+        {
+          "group": "androidx.compose.material3",
+          "module": "material3"
+        },
+        {
+          "group": "com.google.dagger",
+          "module": "hilt-android",
+          "version": {
+            "requires": "2.58"
+          }
+        },
+        {
+          "group": "com.mokelab.android.devportal",
+          "module": "quickmenu-api",
+          "version": {
+            "requires": "0.1.1"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.2.10"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "quickmenu-core-0.1.1.aar",
+          "url": "quickmenu-core-0.1.1.aar",
+          "size": 43193,
+          "sha512": "479f8aa06da9d5b87cfa78dcb2d226e4393b2c909882913c53a35fce36775a08898dd9eeb24a5dbceee46c93a19e8b30cc3ab4e61b098b39f4a0222978353d66",
+          "sha256": "ea9b932c6d8d970cee0ca0589e134026a646e8d499296516d36ffaf9db88a3a6",
+          "sha1": "f28d3b7be38583a9a3bfe5c7b2992c731e258012",
+          "md5": "b75f371f71d2eb009606217ae102629f"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseSourcePublication",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "quickmenu-core-0.1.1-sources.jar",
+          "url": "quickmenu-core-0.1.1-sources.jar",
+          "size": 8329,
+          "sha512": "0c00edfcfc7d6787037327041ecd14253f91f7df08602c9cc0e5c0c93f9930cfbbe8e892a1fa45676045a11428a95e2248b51e51b38198e2e66b69383267f179",
+          "sha256": "7966728670d2d5b52d4a6daada8b46f014606a74ba4d34b8266f369a18d7296c",
+          "sha1": "a3d88d1f7fa36ced002fa951fb5a1626c22d82ad",
+          "md5": "f4ada0ca0cb697a3330d9f3495fdb21a"
+        }
+      ]
+    }
+  ]
+}
