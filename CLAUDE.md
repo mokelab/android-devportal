@@ -36,7 +36,7 @@ This is the most important thing to know before editing. Inter-module dependenci
 Consequences:
 
 - Editing source in `lib/api` (or any library) does **not** affect `demo` or dependent libraries until that module is re-published into `docs/repo`.
-- Publish in dependency order when an API changes: `api` → `devportal` / `logcat:api` → `logcat:core`, `logcat:basic`, `file:core` → `bom`.
+- Publish in dependency order when an API changes: `api` → `devportal` / `logcat:api` → `logcat:core`, `logcat:basic`, `file:core`; `quickmenu:api` → `quickmenu:core`; then `bom`.
 - All artifacts share one version: `devportal` in `gradle/libs.versions.toml`. Re-publishing without bumping overwrites the existing version in `docs/repo` (Gradle may serve a cached copy; use `--refresh-dependencies` if a change doesn't show up).
 - Publishing rewrites `maven-metadata.xml` and its checksum files, so a large `docs/repo` diff after publishing is expected and should be committed together with the source change.
 - A brand-new module can't be consumed by `demo` until it has been published once.
@@ -46,7 +46,7 @@ Consequences:
 1. `include(...)` it in `settings.gradle.kts`.
 2. Add its coordinate to `gradle/libs.versions.toml` (`mokelab-devportal-<name>`, `version.ref = "devportal"`).
 3. Copy the `publishing { ... }` block from an existing module (`release` publication, `localRepo` repository). Artifact ids flatten the path: `lib/logcat/core` → `logcat-core`.
-4. Add it to the constraints in `lib/bom/build.gradle.kts` (`file-core` is currently missing from the BOM, and the BOM has only been published at 0.1.0).
+4. Add it to the constraints in `lib/bom/build.gradle.kts` (`file-core` is currently missing from the BOM; the BOM is published at 0.1.0 and 0.1.1).
 
 ## Architecture
 
@@ -57,6 +57,8 @@ lib/logcat/api   LogcatExtension, LogcatFormat, LogcatFilter (contract for logca
 lib/logcat/core  Logcat feature                              (depends on api + logcat-api)
 lib/logcat/basic Default LogcatExtension (format/filter form)
 lib/file/core    File browser feature                        (depends on api)
+lib/quickmenu/api  QuickMenuItem, QuickMenuScope             (contract for quick menu items)
+lib/quickmenu/core Notification action -> BottomSheet menu   (depends on quickmenu-api; independent of api/devportal)
 lib/bom          java-platform BOM
 demo             Sample app; pulls the libs as debugImplementation
 ```
@@ -72,6 +74,17 @@ demo             Sample app; pulls the libs as debugImplementation
 ### Logcat extension mechanism
 
 The Logcat feature has a second plugin layer. `LogcatExtension` implementations are contributed with `@IntoSet` in `SingletonComponent`, injected into `LogcatViewModel` and sorted by `priority`. Each extension renders `SettingContent(start)` on the settings screen and receives `onStartReadLog` / `onFinishReadLog` callbacks. `logcat-core` alone shows no settings UI — `logcat-basic` supplies the default format/filter form. Logs are read by running `logcat -v <format> <filters> -d` in-process and keeping the last 200 lines.
+
+### QuickMenu
+
+A separate entry point from `DevPortalActivity`: an ongoing notification whose action opens a `ModalBottomSheet` over the current screen.
+
+- Started by App Startup (`QuickMenuInitializer`), so the host adds only the dependency. The initializer runs before `Application.onCreate` and must not touch Hilt; items are resolved when the menu opens via `EntryPointAccessors` (`QuickMenuEntryPoint`).
+- The sheet is a zero-sized `ComposeView` added to the resumed Activity's decor view, not a separate Activity, so the host Activity is never paused. Only `ComponentActivity` is supported.
+- A broadcast notification action does not collapse the notification shade. The sheet is shown immediately (behind the shade) and is visible once the user closes it. Do not wait for window focus: while the host shows a dialog the Activity's window never regains focus.
+- The notification is (re)posted on every Activity resume and cancelled on process `onStop` and at install (leftover from a crashed process).
+- Items are contributed with `@IntoSet` in `SingletonComponent` and rendered in a `LazyColumn` by `priority`. No navigation inside the sheet.
+- The library declares `POST_NOTIFICATIONS` but never requests it; the host/user grants it.
 
 ### Host app requirements
 

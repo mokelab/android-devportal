@@ -1,0 +1,138 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.mokelab.android.devportal",
+    "module": "quickmenu-api",
+    "version": "0.1.1",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "9.1.0"
+    }
+  },
+  "variants": [
+    {
+      "name": "releaseVariantReleaseApiPublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "androidx.compose",
+          "module": "compose-bom",
+          "version": {
+            "requires": "2025.11.01"
+          },
+          "attributes": {
+            "org.gradle.category": "platform"
+          }
+        },
+        {
+          "group": "androidx.compose.runtime",
+          "module": "runtime"
+        },
+        {
+          "group": "androidx.activity",
+          "module": "activity",
+          "version": {
+            "requires": "1.12.0"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.2.10"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "quickmenu-api-0.1.1.aar",
+          "url": "quickmenu-api-0.1.1.aar",
+          "size": 2248,
+          "sha512": "19c6079f2c6a61f440cdd8549217f3b7e15de7b89ade255ecf2c39d0252cd9ff6215516a9938b1436678ef56f5ad0cc0c1e56ae3827558d6607e465e9aae4c4c",
+          "sha256": "5322b8003c28656e6bc7906aee6ddb03b5521360b945a6fb5c1e16617f6a02f7",
+          "sha1": "441e331b201172918f6bd30e312e16313a668e07",
+          "md5": "742b3bc17b77fb0f0037cdd1102ad037"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseRuntimePublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "androidx.compose",
+          "module": "compose-bom",
+          "version": {
+            "requires": "2025.11.01"
+          },
+          "attributes": {
+            "org.gradle.category": "platform"
+          }
+        },
+        {
+          "group": "androidx.compose.runtime",
+          "module": "runtime"
+        },
+        {
+          "group": "androidx.activity",
+          "module": "activity",
+          "version": {
+            "requires": "1.12.0"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.2.10"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "quickmenu-api-0.1.1.aar",
+          "url": "quickmenu-api-0.1.1.aar",
+          "size": 2248,
+          "sha512": "19c6079f2c6a61f440cdd8549217f3b7e15de7b89ade255ecf2c39d0252cd9ff6215516a9938b1436678ef56f5ad0cc0c1e56ae3827558d6607e465e9aae4c4c",
+          "sha256": "5322b8003c28656e6bc7906aee6ddb03b5521360b945a6fb5c1e16617f6a02f7",
+          "sha1": "441e331b201172918f6bd30e312e16313a668e07",
+          "md5": "742b3bc17b77fb0f0037cdd1102ad037"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseSourcePublication",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "quickmenu-api-0.1.1-sources.jar",
+          "url": "quickmenu-api-0.1.1-sources.jar",
+          "size": 1999,
+          "sha512": "9d9367c830b3bb8f4b6fb39579051b73518bde200e50b24a281a343d4cdaa4a63880ea13c4b00ee008771e0b3c76f91de68588904656d86be6032d2d43fde377",
+          "sha256": "9735c0da1a0eefbb5500aea0a49270e1265e9bb4effa222072b84e49c6e181d5",
+          "sha1": "6c6b42202140b92de679dfd789b08ef01bc6ba28",
+          "md5": "b0a0a6b155dc612c77cf4a41fe6502a3"
+        }
+      ]
+    }
+  ]
+}

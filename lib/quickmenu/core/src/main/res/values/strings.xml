@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="quickmenu_core_channel_name">QuickMenu</string>
+    <string name="quickmenu_core_notification_title">QuickMenu</string>
+    <string name="quickmenu_core_notification_text">Open the debug menu on the current screen</string>
+    <string name="quickmenu_core_action_open">Open menu</string>
+    <string name="quickmenu_core_sheet_title">QuickMenu</string>
+    <string name="quickmenu_core_empty">No menu items</string>
+</resources>

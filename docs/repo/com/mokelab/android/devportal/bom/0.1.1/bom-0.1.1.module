@@ -55,6 +55,20 @@
           "version": {
             "requires": "0.1.1"
           }
+        },
+        {
+          "group": "com.mokelab.android.devportal",
+          "module": "quickmenu-api",
+          "version": {
+            "requires": "0.1.1"
+          }
+        },
+        {
+          "group": "com.mokelab.android.devportal",
+          "module": "quickmenu-core",
+          "version": {
+            "requires": "0.1.1"
+          }
         }
       ]
     },
@@ -96,6 +110,20 @@
         {
           "group": "com.mokelab.android.devportal",
           "module": "logcat-core",
+          "version": {
+            "requires": "0.1.1"
+          }
+        },
+        {
+          "group": "com.mokelab.android.devportal",
+          "module": "quickmenu-api",
+          "version": {
+            "requires": "0.1.1"
+          }
+        },
+        {
+          "group": "com.mokelab.android.devportal",
+          "module": "quickmenu-core",
           "version": {
             "requires": "0.1.1"
           }

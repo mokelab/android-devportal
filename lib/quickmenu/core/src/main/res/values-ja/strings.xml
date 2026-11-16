@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="quickmenu_core_channel_name">QuickMenu</string>
+    <string name="quickmenu_core_notification_title">QuickMenu</string>
+    <string name="quickmenu_core_notification_text">表示中の画面でデバッグメニューを開きます</string>
+    <string name="quickmenu_core_action_open">メニューを開く</string>
+    <string name="quickmenu_core_sheet_title">QuickMenu</string>
+    <string name="quickmenu_core_empty">メニュー項目がありません</string>
+</resources>

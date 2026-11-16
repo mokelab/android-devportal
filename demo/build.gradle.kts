@@ -43,6 +43,7 @@ dependencies {
     debugImplementation(libs.mokelab.devportal.devportal)
     debugImplementation(libs.mokelab.devportal.logcat.core)
     debugImplementation(libs.mokelab.devportal.logcat.basic)
+    debugImplementation(libs.mokelab.devportal.quickmenu.core)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
